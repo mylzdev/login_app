@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constants/image_strings.dart';
-import '../../../../constants/sizes.dart';
-import '../../../../constants/text_strings.dart';
+import '../../constants/image_strings.dart';
+import '../../constants/sizes.dart';
+import '../../constants/text_strings.dart';
 
 class LoginFooterWidget extends StatelessWidget {
   const LoginFooterWidget({
     super.key,
+    required this.loginOrSignup,
   });
+
+  final String loginOrSignup;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class LoginFooterWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyLarge,
               children: [
                 TextSpan(
-                  text: tSignup,
+                  text: loginOrSignup,
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge

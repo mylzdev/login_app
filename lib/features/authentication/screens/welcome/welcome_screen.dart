@@ -8,6 +8,7 @@ import 'package:login_app/constants/image_strings.dart';
 import 'package:login_app/constants/sizes.dart';
 import 'package:login_app/constants/text_strings.dart';
 import 'package:login_app/features/authentication/screens/login/login_screen.dart';
+import 'package:login_app/features/authentication/screens/signup/signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -16,14 +17,11 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     var height = mediaQuery.size.height;
-    var brightness = mediaQuery.platformBrightness;
-    final isDarkMode = brightness == Brightness.dark;
 
     final controller = Get.put(FadeInAnimationController());
     controller.startAnimation();
 
     return Scaffold(
-      backgroundColor: isDarkMode ? tSecondaryColor : tPrimaryColor,
       body: Stack(
         children: [
           TFadeInAnimation(
@@ -92,7 +90,7 @@ class WelcomeScreen extends StatelessWidget {
                             ],
                           ),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () => Get.to(const SignupScreen()),
                             child: Text(
                               tSignup.toUpperCase(),
                               style: const TextStyle(letterSpacing: 1),

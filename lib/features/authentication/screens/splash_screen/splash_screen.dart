@@ -20,11 +20,7 @@ class SplashScreen extends StatelessWidget {
     final controller = Get.put(FadeInAnimationController());
     controller.startSplashAnimation();
 
-    var brightness = mediaQuery.platformBrightness;
-    final isDarkMode = brightness == Brightness.dark;
-
     return Scaffold(
-      backgroundColor: isDarkMode ? tSecondaryColor : tPrimaryColor,
       body: SafeArea(
         child: Stack(
           children: [
