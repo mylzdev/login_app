@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:login_app/common_widgets/fade_in_animation/animation_design.dart';
 import 'package:login_app/common_widgets/fade_in_animation/fadein_animation_controller.dart';
 import 'package:login_app/common_widgets/fade_in_animation/fadein_animation_model.dart';
-import 'package:login_app/constants/colors.dart';
 import 'package:login_app/constants/image_strings.dart';
 import 'package:login_app/constants/sizes.dart';
 import 'package:login_app/constants/text_strings.dart';
@@ -78,23 +77,11 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(1, 1),
-                                blurRadius: 1,
-                                blurStyle: BlurStyle.normal,
-                                color: Colors.black.withOpacity(0.5),
-                              ),
-                            ],
-                          ),
-                          child: ElevatedButton(
-                            onPressed: () => Get.to(const SignupScreen()),
-                            child: Text(
-                              tSignup.toUpperCase(),
-                              style: const TextStyle(letterSpacing: 1),
-                            ),
+                        child: ElevatedButton(
+                          onPressed: () => Get.to(const SignupScreen()),
+                          child: Text(
+                            tSignup.toUpperCase(),
+                            style: const TextStyle(letterSpacing: 1),
                           ),
                         ),
                       ),

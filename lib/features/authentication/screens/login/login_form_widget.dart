@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/constants/colors.dart';
+import 'package:login_app/features/authentication/screens/forget_password/forget_password_options/forgot_password_bottom_model_sheet.dart';
 
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
@@ -17,6 +17,8 @@ class LoginFormWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /* -- Email Text Field -- */
+
             TextFormField(
               decoration: const InputDecoration(
                 labelText: tEmail,
@@ -27,6 +29,9 @@ class LoginFormWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: tFormHeight),
+
+            /* -- Password Text Field -- */
+
             TextFormField(
               enableSuggestions: false,
               obscureText: true,
@@ -41,13 +46,20 @@ class LoginFormWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: tFormHeight - 20),
+
+            /* -- Forgot Password -- */
+
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  ForgotPasswordScreen.forgotPasswordBottomModelSheet(context);
+                },
                 child: const Text(tForgetPassword),
               ),
             ),
+            /* -- Log in Button -- */
+
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
