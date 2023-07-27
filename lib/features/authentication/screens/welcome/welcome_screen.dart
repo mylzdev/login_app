@@ -68,7 +68,7 @@ class WelcomeScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: OutlinedButton(
-                          onPressed: () => Get.to(const LoginScreen()),
+                          onPressed: () => Get.to(() => const LoginScreen()),
                           child: Text(
                             tLogin.toUpperCase(),
                             style: const TextStyle(letterSpacing: 1),
@@ -78,7 +78,7 @@ class WelcomeScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () => Get.to(const SignupScreen()),
+                          onPressed: () => Get.to(() => const SignupScreen()),
                           child: Text(
                             tSignup.toUpperCase(),
                             style: const TextStyle(letterSpacing: 1),
