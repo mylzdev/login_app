@@ -35,7 +35,7 @@ class DashboardScreen extends StatelessWidget {
               const SizedBox(height: tDashboardHeight),
               /* -- Banners -- */
               DashboardBanners(txtTheme: txtTheme),
-              const SizedBox(height: tDashboardHeight),
+              const SizedBox(height: tDashboardHeight - 10),
               /* -- Top Courses */
               Text(
                 tDashboardTopCourses,

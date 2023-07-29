@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/repository/auth_repository/authentication_repository.dart';
 
-import '../../../../../constants/colors.dart';
 import '../../../../../constants/text_strings.dart';
 
 class DashboardAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -11,12 +11,11 @@ class DashboardAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: const Icon(
+      leading: Icon(
         Icons.menu,
-        color: Colors.black,
+        color: Theme.of(context).iconTheme.color,
       ),
-      title:
-          Text(tAppName, style: Theme.of(context).textTheme.headlineMedium),
+      title: Text(tAppName, style: Theme.of(context).textTheme.headlineMedium),
       centerTitle: true,
       automaticallyImplyLeading: false,
       backgroundColor: Colors.transparent,
@@ -24,19 +23,20 @@ class DashboardAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Container(
           margin: const EdgeInsets.only(top: 7, right: 10),
-          decoration: BoxDecoration(
-            color: tCardBgColor,
-            borderRadius: BorderRadius.circular(10),
-          ),
           child: IconButton(
-            icon: const Icon(Icons.person, color: Colors.black87),
-            onPressed: () {},
+            color: Theme.of(context).iconTheme.color,
+            icon: const Icon(
+              Icons.person,
+            ),
+            onPressed: () {
+              AuthenticationRepository.instance.logout();
+            },
           ),
         ),
       ],
     );
   }
-  
+
   @override
   Size get preferredSize => const Size.fromHeight(55);
 }

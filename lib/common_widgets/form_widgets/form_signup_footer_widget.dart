@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:login_app/features/authentication/screens/login/login_screen.dart';
 
 import '../../constants/image_strings.dart';
 import '../../constants/sizes.dart';
 import '../../constants/text_strings.dart';
 
-class LoginFooterWidget extends StatelessWidget {
-  const LoginFooterWidget({
+class SignupFooterWidget extends StatelessWidget {
+  const SignupFooterWidget({
     super.key,
-    required this.loginOrSignup,
   });
-
-  final String loginOrSignup;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +30,16 @@ class LoginFooterWidget extends StatelessWidget {
         ),
         const SizedBox(height: tFormHeight - 20),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.off(() => const LoginScreen());
+          },
           child: Text.rich(
             TextSpan(
               text: tDontHaveAnAccount,
               style: Theme.of(context).textTheme.bodyLarge,
               children: [
                 TextSpan(
-                  text: loginOrSignup,
+                  text: tLogin,
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge

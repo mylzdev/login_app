@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:login_app/features/authentication/controllers/signup_controller.dart';
 
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
@@ -10,13 +12,18 @@ class SignupFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignUpController());
+    final formKey = GlobalKey<FormState>();
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight - 10),
       child: Form(
+        key: formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              controller: controller.fullname,
               decoration: const InputDecoration(
                 labelText: tFullName,
                 hintText: tFullName,
@@ -25,6 +32,7 @@ class SignupFormWidget extends StatelessWidget {
             ),
             const SizedBox(height: tFormHeight - 20),
             TextFormField(
+              controller: controller.email,
               decoration: const InputDecoration(
                 labelText: tEmail,
                 hintText: tEmail,
@@ -33,6 +41,7 @@ class SignupFormWidget extends StatelessWidget {
             ),
             const SizedBox(height: tFormHeight - 20),
             TextFormField(
+              controller: controller.phoneNo,
               decoration: const InputDecoration(
                 labelText: tPhoneNo,
                 hintText: tPhoneNo,
@@ -41,6 +50,7 @@ class SignupFormWidget extends StatelessWidget {
             ),
             const SizedBox(height: tFormHeight - 20),
             TextFormField(
+              controller: controller.password,
               decoration: InputDecoration(
                 labelText: tPassword,
                 hintText: tPassword,
@@ -55,7 +65,14 @@ class SignupFormWidget extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    controller.registerUser(
+                      controller.email.text.trim(),
+                      controller.password.text.trim(),
+                    );
+                  }
+                },
                 child: Text(
                   tSignup.toUpperCase(),
                 ),

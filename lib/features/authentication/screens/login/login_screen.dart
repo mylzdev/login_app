@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/common_widgets/form_widgets/form_login_footer_widget.dart';
 import 'package:login_app/constants/image_strings.dart';
 import 'package:login_app/constants/sizes.dart';
 import 'package:login_app/constants/text_strings.dart';
 import 'package:login_app/features/authentication/screens/login/login_form_widget.dart';
+import 'package:login_app/features/authentication/screens/signup/signup_screen.dart';
 
-import '../../../../common_widgets/form_widgets/form_footer_widget.dart';
 import '../../../../common_widgets/form_widgets/form_header_widget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class LoginScreen extends StatelessWidget {
                   image: tOnBoradingImage1,
                 ),
                 LoginFormWidget(),
-                LoginFooterWidget(loginOrSignup: tLogin),
+                LoginFooterWidget(),
               ],
             ),
           ),

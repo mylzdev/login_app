@@ -25,9 +25,7 @@ class DashboardSearchbox extends StatelessWidget {
         children: [
           Text(
             tDashboardSearch,
-            style: txtTheme.displayMedium?.apply(
-              color: Colors.black.withOpacity(0.5),
-            ),
+            style: txtTheme.displayMedium
           ),
           const Icon(Icons.mic)
         ],

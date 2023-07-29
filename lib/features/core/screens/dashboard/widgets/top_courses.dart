@@ -14,6 +14,8 @@ class TopCourses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final topCoursesList = TopCoursesModel.list;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
 
     return SizedBox(
       height: 200,
@@ -31,8 +33,8 @@ class TopCourses extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: tCardBgColor,
                   borderRadius: BorderRadius.circular(10),
+                  color: isDarkMode ? tCardDarkColor : tCardLightColor
                 ),
                 child: Column(
                   children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/constants/colors.dart';
 
 class ForgetPasswordBtnWidget extends StatelessWidget {
   const ForgetPasswordBtnWidget({
@@ -16,12 +17,15 @@ class ForgetPasswordBtnWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: isDarkMode ? tCardDarkColor : tCardLightColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(

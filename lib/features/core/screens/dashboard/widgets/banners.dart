@@ -15,6 +15,8 @@ class DashboardBanners extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,7 +24,7 @@ class DashboardBanners extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: tCardBgColor,
+              color: isDarkMode ? tCardDarkColor : tCardLightColor,
             ),
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
@@ -35,8 +37,7 @@ class DashboardBanners extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Flexible(
-                        child: Icon(Icons.bookmark_border_outlined)),
+                    Flexible(child: Icon(Icons.bookmark_border_outlined)),
                     Flexible(
                         child: Image(
                       image: AssetImage(tOnBoradingImage2),
@@ -70,20 +71,17 @@ class DashboardBanners extends StatelessWidget {
                   vertical: 20,
                 ),
                 decoration: BoxDecoration(
-                  color: tCardBgColor,
                   borderRadius: BorderRadius.circular(10),
+                  color: isDarkMode ? tCardDarkColor : tCardLightColor,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Flexible(
-                            child:
-                                Icon(Icons.bookmark_border_outlined)),
+                        Flexible(child: Icon(Icons.bookmark_border_outlined)),
                         Flexible(
                             child: Image(
                           image: AssetImage(tOnBoradingImage2),
@@ -105,6 +103,7 @@ class DashboardBanners extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
