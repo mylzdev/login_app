@@ -11,3 +11,6 @@ const String tOnBoradingBackground3 = 'assets/images/on_boarding_images/on_board
 
 // Login Screen Images
 const String tGoogleLogo = 'assets/logo/google_logo.png';
+
+// Profile Images
+const String tProfileImage = 'assets/images/profile_images/profile_image.jpg';

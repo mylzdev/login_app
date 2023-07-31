@@ -12,7 +12,7 @@ class OTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(OTPController());
-    var otp;
+    var otp = '';
 
     return SafeArea(
       child: Scaffold(

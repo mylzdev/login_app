@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/repository/auth_repository/authentication_repository.dart';
+import 'package:get/get.dart';
 
 import '../../../../../constants/text_strings.dart';
+import '../../profile/profile_screen.dart';
 
 class DashboardAppbar extends StatelessWidget implements PreferredSizeWidget {
   const DashboardAppbar({
@@ -18,8 +19,6 @@ class DashboardAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(tAppName, style: Theme.of(context).textTheme.headlineMedium),
       centerTitle: true,
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
       actions: [
         Container(
           margin: const EdgeInsets.only(top: 7, right: 10),
@@ -29,7 +28,7 @@ class DashboardAppbar extends StatelessWidget implements PreferredSizeWidget {
               Icons.person,
             ),
             onPressed: () {
-              AuthenticationRepository.instance.logout();
+              Get.to(() => const ProfileScreen());
             },
           ),
         ),

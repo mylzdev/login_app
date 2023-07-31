@@ -78,3 +78,22 @@ const String tDashboardBannerTitle2 = "Java Script";
 const String tDashboardBannerSubtitle = "10 Lessons";
 const String tDashboardButton = "View All";
 const String tDashboardTopCourses = "Top Courses";
+
+// -- Profile Text
+const String tProfile = 'Profile';
+const String tEditProfile = 'Edit Profile';
+const String tLogoutDialogHeading = 'Logout';
+const String tProfileHeading = 'Miles Morales';
+const String tProfileSubHeading = 'johnmilesmorales16@gmail.com';
+
+// -- Menu
+const String tMenu5 = tLogoutDialogHeading;
+const String tMenu1 = 'Settings';
+const String tMenu4 = 'Information';
+const String tMenu2 = 'Billing Details';
+const String tMenu3 = 'User Management';
+
+// -- Update Profile Screen Text
+const String tDelete = 'Delete';
+const String tJoined = 'Joined ';
+const String tJoinedAt = '31 July 2023';

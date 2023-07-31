@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/features/authentication/controllers/signup_controller.dart';
 import 'package:login_app/features/authentication/screens/forget_password/forget_password_otp/otp_screen.dart';
-import 'package:login_app/repository/auth_repository/authentication_repository.dart';
 
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
