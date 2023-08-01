@@ -25,14 +25,14 @@ class UserModel {
   }
 
   // Map user fetched from friebase to usermodel
-  factory UserModel.fromSnapShot(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return UserModel(
       id: document.id,
-      email: data["Email"],
-      fullname: data["Fullname"],
-      password: data["Password"],
-      phoneNo: data["Phone"],
+      email: data["Email"] ?? '',
+      fullname: data["Fullname"] ?? '',
+      password: data["Password"] ?? '',
+      phoneNo: data["Phone"] ?? '',
     );
   }
 }

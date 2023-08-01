@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -28,7 +27,10 @@ class UpdateProfileScreen extends StatelessWidget {
             onPressed: () {
               Get.back();
             },
-            icon: const Icon(LineAwesomeIcons.angle_left),
+            icon: Icon(
+              LineAwesomeIcons.angle_left,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -38,8 +40,14 @@ class UpdateProfileScreen extends StatelessWidget {
               future: controller.getUserData(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) { 
-                    UserModel userData = snapshot.data as UserModel;
+                  if (snapshot.hasData) {
+                    UserModel user = snapshot.data as UserModel;
+
+                    final email = TextEditingController(text: user.email);
+                    final password = TextEditingController(text: user.password);
+                    final fullname = TextEditingController(text: user.fullname);
+                    final phoneNo = TextEditingController(text: user.phoneNo);
+
                     return Column(
                       children: [
                         /* -- Profile Picture -- */
@@ -84,7 +92,7 @@ class UpdateProfileScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               TextFormField(
-                                initialValue: userData.fullname,
+                                controller: fullname,
                                 decoration: const InputDecoration(
                                     labelText: tFullName,
                                     hintText: tFullName,
@@ -92,7 +100,7 @@ class UpdateProfileScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: tFormHeight - 20),
                               TextFormField(
-                                initialValue: userData.email,
+                                controller: email,
                                 decoration: const InputDecoration(
                                     labelText: tEmail,
                                     hintText: tEmail,
@@ -101,7 +109,7 @@ class UpdateProfileScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: tFormHeight - 20),
                               TextFormField(
-                                initialValue: userData.phoneNo,
+                                controller: phoneNo,
                                 decoration: const InputDecoration(
                                     labelText: tPhoneNo,
                                     hintText: tPhoneNo,
@@ -109,7 +117,7 @@ class UpdateProfileScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: tFormHeight - 20),
                               TextFormField(
-                                initialValue: userData.password,
+                                controller: password,
                                 decoration: const InputDecoration(
                                     labelText: tPassword,
                                     hintText: tPassword,
@@ -126,8 +134,15 @@ class UpdateProfileScreen extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {
-                              Get.to(() => const UpdateProfileScreen());
+                            onPressed: () async {
+                              final userData = UserModel(
+                                id: user.id,
+                                email: email.text.trim(),
+                                fullname: fullname.text.trim(),
+                                password: password.text.trim(),
+                                phoneNo: phoneNo.text.trim(),
+                              );
+                              await controller.updateRecord(userData);
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: tPrimaryColor,

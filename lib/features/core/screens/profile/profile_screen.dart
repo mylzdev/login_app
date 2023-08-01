@@ -6,6 +6,7 @@ import 'package:login_app/constants/image_strings.dart';
 import 'package:login_app/constants/sizes.dart';
 import 'package:login_app/constants/text_strings.dart';
 import 'package:login_app/features/core/screens/profile/update_profile.dart';
+import 'package:login_app/features/core/screens/profile/user_management.dart';
 import 'package:login_app/repository/auth_repository/authentication_repository.dart';
 
 import 'widgets/profile_menu.dart';
@@ -134,7 +135,9 @@ class ProfileScreen extends StatelessWidget {
                 ProfileMenuWidget(
                   title: tMenu3,
                   leadingIcon: LineAwesomeIcons.user_check,
-                  onPress: () {},
+                  onPress: () {
+                    Get.to(() => const UserManagementScreen());
+                  },
                 ),
                 const Divider(),
                 const SizedBox(height: 30),

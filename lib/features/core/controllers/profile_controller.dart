@@ -4,8 +4,9 @@ import 'package:login_app/repository/auth_repository/authentication_repository.d
 import 'package:login_app/repository/user_repository/user_repository.dart';
 
 class ProfileController extends GetxController {
-  static ProfileController get instance => Get.find(); 
+  static ProfileController get instance => Get.find();
 
+  // repositories
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());
 
@@ -19,7 +20,9 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<List<UserModel>> getAllUser() async {
-    return await _userRepo.allUser();
+  Future<List<UserModel>> getAllUser() async => await _userRepo.allUser();
+
+  updateRecord(UserModel user) async {
+    await _userRepo.updateUserRecord(user);
   }
 }
