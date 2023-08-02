@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:login_app/features/authentication/controllers/login_controller.dart';
 import 'package:login_app/features/authentication/screens/forget_password/forget_password_options/forgot_password_bottom_model_sheet.dart';
+import 'package:login_app/utils/auth_function/validate_email.dart';
 
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
@@ -28,7 +29,7 @@ class LoginFormWidget extends StatelessWidget {
             TextFormField(
               controller: controller.email,
               enableSuggestions: false,
-              validator: (value) => controller.validateEmail(value),
+              validator: (value) => TextFieldValidation.validateEmail(value),
               decoration: const InputDecoration(
                 labelText: tEmail,
                 hintText: tEmail,
@@ -43,10 +44,7 @@ class LoginFormWidget extends StatelessWidget {
 
             Obx(
               () => TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) return 'Enter your password';
-                  return null;
-                },
+                validator: (value) => TextFieldValidation.passwordValidation(value),
                 controller: controller.password,
                 enableSuggestions: false,
                 obscureText: controller.showPassword.value ? false : true,

@@ -1,9 +1,11 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:login_app/exceptions/auth_exception/auth_exception.dart';
+import 'package:login_app/features/authentication/screens/login/login_screen.dart';
+import 'package:login_app/features/authentication/screens/mail_verification/mail_verification.dart';
 import 'package:login_app/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:login_app/features/core/screens/dashboard/dashboard_screen.dart';
-import 'package:login_app/repository/auth_repository/exception/login_email_password_failure.dart';
-import 'package:login_app/repository/auth_repository/exception/signup_email_password_failure.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -16,13 +18,17 @@ class AuthenticationRepository extends GetxController {
   void onReady() {
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    FlutterNativeSplash.remove();
+    setInitialScreen(firebaseUser.value);
+    // ever(firebaseUser, _setInitialScreen);
   }
 
-  _setInitialScreen(User? user) {
+  setInitialScreen(User? user) async {
     user == null
         ? Get.offAll(() => const WelcomeScreen())
-        : Get.offAll(() => const DashboardScreen());
+        : user.emailVerified
+            ? Get.offAll(() => const DashboardScreen())
+            : Get.offAll(() => const MailVerificationScreen());
   }
 
   Future<void> phoneAuthentication(String phoneNo) async {
@@ -64,10 +70,10 @@ class AuthenticationRepository extends GetxController {
           ? Get.offAll(() => const DashboardScreen())
           : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
-      final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
+      final ex = TAuthException.fromCode(e.code);
       return ex.message;
     } catch (_) {
-      const ex = SignUpWithEmailAndPasswordFailure();
+      final ex = TAuthException();
       return ex.message;
     }
     return null;
@@ -78,14 +84,30 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      final ex = LoginWithEmailAndPasswordFailure(e.code);
+      final ex = TAuthException.fromCode(e.code);
       return ex.message;
     } catch (_) {
-      final ex = LoginWithEmailAndPasswordFailure();
+      final ex = TAuthException();
       return ex.message;
     }
     return null;
   }
 
-  Future<void> logout() async => await _auth.signOut();
+  Future<String?> sendEmailVerification() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      final ex = TAuthException.fromCode(e.code);
+      throw ex;
+    } catch (_) {
+      final ex = TAuthException();
+      throw ex.message;
+    }
+    return null;
+  }
+
+  Future<void> logout() async {
+    await _auth.signOut();
+    Get.offAll(() => const LoginScreen());
+  }
 }

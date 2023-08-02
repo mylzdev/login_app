@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:login_app/repository/auth_repository/authentication_repository.dart';
@@ -24,14 +23,10 @@ class LoginController extends GetxController {
         message: error.toString(),
         duration: const Duration(milliseconds: 2000),
       ));
-    }
-  }
-
-  validateEmail(String? email) {
-    if (!EmailValidator.validate(email!)) {
-      return 'Invalid Email';
     } else {
-      return null;
+      final authRepo = AuthenticationRepository.instance;
+      AuthenticationRepository.instance
+          .setInitialScreen(authRepo.firebaseUser.value);
     }
   }
 }

@@ -57,9 +57,6 @@ class UserManagementScreen extends StatelessWidget {
                               leading: const Icon(LineAwesomeIcons.user_1),
                               title: Text(
                                 'Name: ${snapshot.data![index].fullname}',
-                                style: const TextStyle(
-                                  overflow: TextOverflow.ellipsis,
-                                ),
                               ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

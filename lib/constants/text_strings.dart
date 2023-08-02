@@ -12,32 +12,33 @@ const String tPassword = "Password";
 const String tFullName = "Full Name";
 const String tForgetPassword = "Forget Password?";
 const String tSignInWithGoogle = "Sign In with Google";
+const String tContinue = 'Continue';
 
 // -- Font String
 final String? poppins = GoogleFonts.poppins().fontFamily;
-
 
 // -- Splash Screen Text
 const String tAppName = ".appable/";
 const String tAppTagLine = "Learn To Code. \nFree For Everyone";
 
-
 // -- On Boarding Text
 const String tOnBoardingTitle1 = "Specify Location";
 const String tOnBoardingTitle2 = "Get Taxi";
 const String tOnBoardingTitle3 = "Find Another Location";
-const String tOnBoardingSubTitle1 = "Let's start your journey with us on this amazing and easy platform.";
-const String tOnBoardingSubTitle2 = "Get Video Tutorials of each topic to learn things easily.";
-const String tOnBoardingSubTitle3 = "Save time by just copy pasting complete apps you learned from videos.";
+const String tOnBoardingSubTitle1 =
+    "Let's start your journey with us on this amazing and easy platform.";
+const String tOnBoardingSubTitle2 =
+    "Get Video Tutorials of each topic to learn things easily.";
+const String tOnBoardingSubTitle3 =
+    "Save time by just copy pasting complete apps you learned from videos.";
 const String tOnBoardingCounter1 = "1/3";
 const String tOnBoardingCounter2 = "2/3";
 const String tOnBoardingCounter3 = "3/3";
 
-
 // -- Welcome Screen Text
 const String tWelcomeTitle = "Build Awesome Apps";
-const String tWelcomeSubTitle = "Let's put your creativity on the development highway, crafts apps that everyone love";
-
+const String tWelcomeSubTitle =
+    "Let's put your creativity on the development highway, crafts apps that everyone love";
 
 // -- Login Screen Text
 const String tLoginTitle = "Welcome Back,";
@@ -45,24 +46,25 @@ const String tLoginSubTitle = "Make it work, make it right, make it fast.";
 const String tRememberMe = "Remember Me?";
 const String tDontHaveAnAccount = "Don't have an Account? ";
 
-
 // -- Sign Up Screen Text
 const String tSignUpTitle = "Get On Board!";
 const String tSignUpSubTitle = "Create your profile to start your Journey.";
 const String tAlreadyHaveAnAccount = "Already have an Account? ";
 
-
 // -- Forget Password Text
 const String tForgetPasswordTitle = "Make Selection!";
-const String tForgetPasswordSubTitle = "Select one of the options given below to reset your password.";
+const String tForgetPasswordSubTitle =
+    "Select one of the options given below to reset your password.";
 const String tResetViaEMail = "Reset via Mail Verification";
 const String tResetViaPhone = "Reset via Phone Verification";
 
 // -- Forget Password Via Phone - Text
-const String tForgetPhoneSubTitle = "Enter your registered Phone No to receive OTP";
+const String tForgetPhoneSubTitle =
+    "Enter your registered Phone No to receive OTP";
 
 // -- Forget Password Via E-Mail - Text
-const String tForgetMailSubTitle = "Enter your registered E-Mail to receive OTP";
+const String tForgetMailSubTitle =
+    "Enter your registered E-Mail to receive OTP";
 
 // -- OTP Text
 const String tOtpTitle = "CO\nDE";
@@ -97,3 +99,12 @@ const String tMenu3 = 'User Management';
 const String tDelete = 'Delete';
 const String tJoined = 'Joined ';
 const String tJoinedAt = '31 July 2023';
+
+// -- Email Verification Screen Text
+const String tVerifyEmail = 'Verify your email address';
+const String tVerifyEmailSend =
+    'We have just send email verification link on your email. Please check your email and click on that link to verify your email address';
+const String tIfNotRedirect =
+    'If not auto redirected after verification, click on the Continue Button';
+const String tResendEmail = 'Resend Email link';
+const String tBackToLogin = ' Back to login';

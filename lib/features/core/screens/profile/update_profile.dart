@@ -145,8 +145,10 @@ class UpdateProfileScreen extends StatelessWidget {
                               await controller.updateRecord(userData);
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: tPrimaryColor,
-                                shape: const StadiumBorder()),
+                              backgroundColor: tPrimaryColor,
+                              shape: const StadiumBorder(),
+                              side: BorderSide.none
+                            ),
                             child: Text(
                               tEditProfile,
                               style: Theme.of(context)
