@@ -8,7 +8,6 @@ import '../models/model_on_bording.dart';
 import '../screens/on_boarding/on_boarding_page_widget.dart';
 
 class OnBoardingController extends GetxController {
-
   final controller = LiquidController();
   RxInt currentPage = 0.obs;
 

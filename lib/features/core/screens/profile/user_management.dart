@@ -12,28 +12,29 @@ class UserManagementScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
     final controller = Get.put(ProfileController());
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          title: Text(
-            tEditProfile,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(LineAwesomeIcons.arrow_left,
-                color: Theme.of(context).iconTheme.color),
-          ),
+    var brightness = MediaQuery.of(context).platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        title: Text(
+          tEditProfile,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
-        body: Container(
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(LineAwesomeIcons.arrow_left,
+              color: Theme.of(context).iconTheme.color),
+        ),
+      ),
+      body: SafeArea(
+        child: Container(
           padding: const EdgeInsets.all(tDefaultSize),
           child: FutureBuilder<List<UserModel>>(
             future: controller.getAllUser(),
@@ -48,32 +49,36 @@ class UserManagementScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(4.0),
-                            child: ListTile(
-                              isThreeLine: true,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7)),
-                              tileColor:
-                                  isDarkMode ? tCardDarkColor : tCardLightColor,
-                              leading: const Icon(LineAwesomeIcons.user_1),
-                              title: Text(
-                                'Name: ${snapshot.data![index].fullname}',
-                              ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    snapshot.data![index].phoneNo,
-                                    style: const TextStyle(
-                                      overflow: TextOverflow.ellipsis,
+                            child: Obx(
+                              () => ListTile(
+                                isThreeLine: true,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(7)),
+                                tileColor:
+                                    isDarkMode || !controller.isDarkMode.value
+                                        ? tCardDarkColor
+                                        : tCardLightColor,
+                                leading: const Icon(LineAwesomeIcons.user_1),
+                                title: Text(
+                                  'Name: ${snapshot.data![index].fullname}',
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      snapshot.data![index].phoneNo,
+                                      style: const TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    snapshot.data![index].email,
-                                    style: const TextStyle(
-                                      overflow: TextOverflow.ellipsis,
+                                    Text(
+                                      snapshot.data![index].email,
+                                      style: const TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

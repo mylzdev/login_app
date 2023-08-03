@@ -5,6 +5,7 @@ import 'package:login_app/features/authentication/controllers/login_controller.d
 import 'package:login_app/features/authentication/screens/forget_password/forget_password_options/forgot_password_bottom_model_sheet.dart';
 import 'package:login_app/utils/auth_function/validate_email.dart';
 
+import '../../../../constants/colors.dart';
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
 
@@ -44,7 +45,8 @@ class LoginFormWidget extends StatelessWidget {
 
             Obx(
               () => TextFormField(
-                validator: (value) => TextFieldValidation.passwordValidation(value),
+                validator: (value) =>
+                    TextFieldValidation.passwordValidation(value),
                 controller: controller.password,
                 enableSuggestions: false,
                 obscureText: controller.showPassword.value ? false : true,
@@ -52,13 +54,20 @@ class LoginFormWidget extends StatelessWidget {
                   labelText: tPassword,
                   hintText: tPassword,
                   suffixIcon: IconButton(
-                    onPressed: () => controller.showPassword.value =
-                        !controller.showPassword.value,
-                    icon: controller.showPassword.value
-                        ? const FaIcon(FontAwesomeIcons.eye, size: 20,)
-                        : const FaIcon(FontAwesomeIcons.eyeSlash, size: 20,)
+                      onPressed: () => controller.showPassword.value =
+                          !controller.showPassword.value,
+                      icon: controller.showPassword.value
+                          ? const Icon(
+                              FontAwesomeIcons.eye,
+                              size: 20,
+                            )
+                          : const Icon(
+                              FontAwesomeIcons.eyeSlash,
+                              size: 20,
+                            )),
+                  prefixIcon: const Icon(
+                    Icons.fingerprint,
                   ),
-                  prefixIcon: const Icon(Icons.fingerprint),
                 ),
               ),
             ),
@@ -72,22 +81,43 @@ class LoginFormWidget extends StatelessWidget {
                 onPressed: () {
                   ForgotPasswordScreen.forgotPasswordBottomModelSheet(context);
                 },
-                child: const Text(tForgetPassword),
+                child: const Text(
+                  tForgetPassword,
+                  style: TextStyle(color: Colors.blue),
+                ),
               ),
             ),
 
             /* -- Log in Button -- */
 
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (controller.loginFormKey.currentState!.validate()) {
-                    controller.login();
-                  }
-                },
-                child: Text(
-                  tLogin.toUpperCase(),
+            Obx(
+              () => SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (controller.loginFormKey.currentState!.validate()) {
+                      controller.login();
+                    }
+                  },
+                  child: controller.isLoading.value
+                      ? const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                color: tPrimaryColor,
+                                strokeWidth: 3.0,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Text(tLoading),
+                          ],
+                        )
+                      : Text(
+                          tLogin.toUpperCase(),
+                        ),
                 ),
               ),
             ),

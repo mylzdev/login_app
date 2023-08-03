@@ -12,7 +12,9 @@ const String tPassword = "Password";
 const String tFullName = "Full Name";
 const String tForgetPassword = "Forget Password?";
 const String tSignInWithGoogle = "Sign In with Google";
-const String tContinue = 'Continue';
+const String tContinue = "Continue";
+const String tOhSnap = "Oh Snap!";
+const String tLoading = "Loading";
 
 // -- Font String
 final String? poppins = GoogleFonts.poppins().fontFamily;

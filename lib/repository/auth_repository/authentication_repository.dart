@@ -1,18 +1,24 @@
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:login_app/exceptions/auth_exception/auth_exception.dart';
 import 'package:login_app/features/authentication/screens/login/login_screen.dart';
 import 'package:login_app/features/authentication/screens/mail_verification/mail_verification.dart';
+import 'package:login_app/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 import 'package:login_app/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:login_app/features/core/screens/dashboard/dashboard_screen.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
+  // Variables
   final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
-  var verificationId = ''.obs;
+  final verificationId = ''.obs;
+
+  // Getters
+  // User? get firebaseUser => firebaseUser.value;
 
   @override
   void onReady() {
@@ -25,10 +31,36 @@ class AuthenticationRepository extends GetxController {
 
   setInitialScreen(User? user) async {
     user == null
-        ? Get.offAll(() => const WelcomeScreen())
+        ? Get.offAll(() => const OnBoardingScreen())
         : user.emailVerified
             ? Get.offAll(() => const DashboardScreen())
             : Get.offAll(() => const MailVerificationScreen());
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      final ex = TAuthException(e.code);
+      throw ex.message;
+    } catch (_) {
+      final ex = TAuthException();
+      throw ex.message;
+    }
   }
 
   Future<void> phoneAuthentication(String phoneNo) async {
@@ -61,8 +93,7 @@ class AuthenticationRepository extends GetxController {
     return credentials.user != null ? true : false;
   }
 
-  Future<String?> createUserWithEmailAndPassword(
-      String email, String password) async {
+  Future<void> signUpWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -71,26 +102,23 @@ class AuthenticationRepository extends GetxController {
           : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
       final ex = TAuthException.fromCode(e.code);
-      return ex.message;
+      throw ex.message;
     } catch (_) {
       final ex = TAuthException();
-      return ex.message;
+      throw ex.message;
     }
-    return null;
   }
 
-  Future<String?> loginWithEmailAndPassword(
-      String email, String password) async {
+  Future<void> loginWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       final ex = TAuthException.fromCode(e.code);
-      return ex.message;
+      throw ex.message;
     } catch (_) {
       final ex = TAuthException();
-      return ex.message;
+      throw ex.message;
     }
-    return null;
   }
 
   Future<String?> sendEmailVerification() async {
@@ -107,7 +135,15 @@ class AuthenticationRepository extends GetxController {
   }
 
   Future<void> logout() async {
-    await _auth.signOut();
-    Get.offAll(() => const LoginScreen());
+    try {
+      await GoogleSignIn().signOut();
+      await _auth.signOut();
+      Get.offAll(() => const LoginScreen());
+    } on FirebaseAuthException catch (e) {
+      final ex = TAuthException.fromCode(e.code);
+      throw ex;
+    } catch (_) {
+      throw 'Something went wrong';
+    }
   }
 }

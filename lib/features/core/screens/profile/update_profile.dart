@@ -8,6 +8,7 @@ import 'package:login_app/features/core/controllers/profile_controller.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
+import 'widgets/edit_profile_footer.dart';
 
 class UpdateProfileScreen extends StatelessWidget {
   const UpdateProfileScreen({super.key});
@@ -15,25 +16,25 @@ class UpdateProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProfileController());
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            tEditProfile,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(
-              LineAwesomeIcons.angle_left,
-              color: Theme.of(context).iconTheme.color,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          tEditProfile,
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            LineAwesomeIcons.angle_left,
+            color: Theme.of(context).iconTheme.color,
           ),
         ),
-        body: SingleChildScrollView(
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(tDefaultSize),
             child: FutureBuilder(
@@ -42,12 +43,12 @@ class UpdateProfileScreen extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     UserModel user = snapshot.data as UserModel;
-
+              
                     final email = TextEditingController(text: user.email);
                     final password = TextEditingController(text: user.password);
                     final fullname = TextEditingController(text: user.fullname);
                     final phoneNo = TextEditingController(text: user.phoneNo);
-
+              
                     return Column(
                       children: [
                         /* -- Profile Picture -- */
@@ -85,9 +86,9 @@ class UpdateProfileScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 50),
-
+              
                         /* -- Form -- */
-
+              
                         Form(
                           child: Column(
                             children: [
@@ -128,9 +129,9 @@ class UpdateProfileScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: tFormHeight),
-
+              
                         /* -- Edit Profile Button */
-
+              
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -145,10 +146,9 @@ class UpdateProfileScreen extends StatelessWidget {
                               await controller.updateRecord(userData);
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: tPrimaryColor,
-                              shape: const StadiumBorder(),
-                              side: BorderSide.none
-                            ),
+                                backgroundColor: tPrimaryColor,
+                                shape: const StadiumBorder(),
+                                side: BorderSide.none),
                             child: Text(
                               tEditProfile,
                               style: Theme.of(context)
@@ -159,44 +159,13 @@ class UpdateProfileScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: tFormHeight + 10),
-
+              
                         /* -- Footer -- */
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text.rich(
-                              TextSpan(
-                                text: tJoined,
-                                style: TextStyle(fontSize: 12),
-                                children: [
-                                  TextSpan(
-                                    text: tJoinedAt,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Colors.redAccent.withOpacity(0.1),
-                                elevation: 0,
-                                side: BorderSide.none,
-                                foregroundColor: Colors.red,
-                                shape: const StadiumBorder(),
-                              ),
-                              onPressed: () {},
-                              child: const Text(tDelete),
-                            ),
-                          ],
-                        ),
+                        const EditProfileFooter(),
                       ],
                     );
                   } else if (snapshot.hasError) {
+                    Get.printError(info: snapshot.error.toString());
                     return Center(child: Text(snapshot.error.toString()));
                   } else {
                     return const Center(child: Text('Something went wrong'));

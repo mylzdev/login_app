@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:login_app/constants/colors.dart';
 import 'package:get/get.dart';
+import 'package:login_app/constants/text_strings.dart';
 import 'package:login_app/features/authentication/controllers/on_boarding_controller.dart';
+import 'package:login_app/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -26,22 +28,34 @@ class OnBoardingScreen extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          Positioned(
-            bottom: 80.0,
-            child: OutlinedButton(
-              onPressed: () => obController.animateToNextSlide(),
-              style: ElevatedButton.styleFrom(
-                side: const BorderSide(color: Colors.black26),
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(20),
-                foregroundColor: Colors.white,
-              ),
-              child: Container(
-                padding: const EdgeInsets.all(20.0),
-                decoration: const BoxDecoration(
-                    color: tDarkColor, shape: BoxShape.circle),
-                child: const Icon(Icons.arrow_forward_ios),
-              ),
+          Obx(
+            () => Positioned(
+              bottom: obController.currentPage.value != 2 ? 80.0 : 110.0,
+              child: obController.currentPage.value != 2
+                  ? OutlinedButton(
+                      onPressed: () => obController.animateToNextSlide(),
+                      style: ElevatedButton.styleFrom(
+                        side: const BorderSide(color: Colors.black26),
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(20),
+                        foregroundColor: Colors.white,
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.all(20.0),
+                        decoration: const BoxDecoration(
+                            color: tDarkColor, shape: BoxShape.circle),
+                        child: const Icon(Icons.arrow_forward_ios),
+                      ),
+                    )
+                  : SizedBox(
+                      width: 120,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.offAll(() => const WelcomeScreen());
+                        },
+                        child: const Text(tContinue),
+                      ),
+                    ),
             ),
           ),
           Positioned(

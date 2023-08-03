@@ -11,7 +11,7 @@ class UserRepository extends GetxController {
   // Store user in Firestore
   createUser(UserModel user) async {
     await _db
-        .collection('Users')
+        .collection("Users")
         .add(user.toJson())
         .whenComplete(
           () => Get.snackbar(
@@ -31,18 +31,18 @@ class UserRepository extends GetxController {
     });
   }
 
-  // Fetch all users or user details
+  // Fetch single user details
   Future<UserModel> getUserDetails(String email) async {
     final snapshot =
         await _db.collection("Users").where("Email", isEqualTo: email).get();
-    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    final userData = snapshot.docs.map((e) => UserModel.fromJson(e)).single;
     return userData;
   }
 
+  // Fetch all users details
   Future<List<UserModel>> allUser() async {
     final snapshot = await _db.collection("Users").get();
-    final userData =
-        snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
+    final userData = snapshot.docs.map((e) => UserModel.fromJson(e)).toList();
     return userData;
   }
 

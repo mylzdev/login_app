@@ -5,6 +5,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:login_app/features/authentication/controllers/signup_controller.dart';
 import 'package:login_app/utils/auth_function/validate_email.dart';
 
+import '../../../../constants/colors.dart';
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
 
@@ -27,7 +28,8 @@ class SignupFormWidget extends StatelessWidget {
             /* -- Fullname Text Field */
 
             TextFormField(
-              validator: (value) => TextFieldValidation.fullnameValidation(value),
+              validator: (value) =>
+                  TextFieldValidation.fullnameValidation(value),
               controller: controller.fullname,
               decoration: const InputDecoration(
                 labelText: tFullName,
@@ -55,7 +57,8 @@ class SignupFormWidget extends StatelessWidget {
             TextFormField(
               controller: controller.phoneNo,
               keyboardType: TextInputType.phone,
-              validator: (value) => TextFieldValidation.phoneNoValidation(value),
+              validator: (value) =>
+                  TextFieldValidation.phoneNoValidation(value),
               decoration: const InputDecoration(
                 labelText: tPhoneNo,
                 hintText: tPhoneNo,
@@ -90,35 +93,38 @@ class SignupFormWidget extends StatelessWidget {
 
             /* -- Signup Button */
 
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (controller.signupForm.currentState!.validate()) {
-                    controller.createUser();
-
-                    // Email and password sign up
-                    // controller.registerUser(
-                    //   controller.email.text.trim(),
-                    //   controller.password.text.trim(),
-                    // );
-
-                    // Phone Authentication sign up
-                    // SignUpController.instance
-                    //     .phoneAuthentication(controller.phoneNo.text.trim());
-                    //     Get.to(() => const OTPScreen());
-
-                    // Database sign up
-                    // final user = UserModel(
-                    //     fullname: controller.fullname.text.trim(),
-                    //     email: controller.email.text.trim(),
-                    //     phoneNo: controller.phoneNo.text.trim(),
-                    //     password: controller.password.text.trim());
-                    //     SignUpController.instance.createUser(user);
-                  }
-                },
-                child: Text(
-                  tSignup.toUpperCase(),
+            Obx(
+              () => SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (controller.signupForm.currentState!.validate()) {
+                      controller.createUser();
+                      // Phone Authentication sign up
+                      // SignUpController.instance
+                      //     .phoneAuthentication(controller.phoneNo.text.trim());
+                      //     Get.to(() => const OTPScreen());
+                    }
+                  },
+                  child: controller.isLoading.value
+                      ? const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                color: tPrimaryColor,
+                                strokeWidth: 3.0,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Text(tLoading),
+                          ],
+                        )
+                      : Text(
+                          tSignup.toUpperCase(),
+                        ),
                 ),
               ),
             ),

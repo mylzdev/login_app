@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/features/core/controllers/profile_controller.dart';
 
 import '../../../../../constants/colors.dart';
 import '../../../models/top_courses_model.dart';
@@ -34,7 +35,10 @@ class TopCourses extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: isDarkMode ? tCardDarkColor : tCardLightColor
+                  color:
+                      isDarkMode || !ProfileController.instance.isDarkMode.value
+                          ? tCardDarkColor
+                          : tCardLightColor,
                 ),
                 child: Column(
                   children: [

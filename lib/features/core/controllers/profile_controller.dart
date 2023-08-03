@@ -10,13 +10,17 @@ class ProfileController extends GetxController {
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());
 
+  // Variable
+  RxBool isDarkMode = false.obs;
+
   // Get User email and pass to UserRepository to fetch user record
-  getUserData() {
-    final email = _authRepo.firebaseUser.value?.email;
+  getUserData() async {
+    final email = _authRepo.firebaseUser.value!.email;
     if (email != null) {
-      return _userRepo.getUserDetails(email);
+      return await _userRepo.getUserDetails(email);
     } else {
       Get.snackbar('Error', 'Login to continue');
+      Get.printError(info: 'Error');
     }
   }
 

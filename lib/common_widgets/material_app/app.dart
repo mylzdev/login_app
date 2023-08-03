@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_app/features/core/controllers/profile_controller.dart';
 
 import '../../utils/theme/theme.dart';
 
@@ -8,15 +9,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Login',
-      debugShowCheckedModeBanner: false,
-      theme: TAppTheme.lightTheme,
-      darkTheme: TAppTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      home: const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
+    final controller = Get.put(ProfileController());
+    return Obx(
+      () => GetMaterialApp(
+        title: 'Login',
+        debugShowCheckedModeBanner: false,
+        theme: controller.isDarkMode.value
+            ? TAppTheme.lightTheme
+            : TAppTheme.darkTheme,
+        darkTheme: TAppTheme.darkTheme,
+        themeMode: ThemeMode.system,
+        home: const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
         ),
       ),
     );

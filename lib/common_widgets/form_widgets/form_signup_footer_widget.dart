@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_app/common_widgets/buttons/google_signin_button.dart';
+import 'package:login_app/features/authentication/controllers/login_controller.dart';
 import 'package:login_app/features/authentication/screens/login/login_screen.dart';
 
-import '../../constants/image_strings.dart';
 import '../../constants/sizes.dart';
 import '../../constants/text_strings.dart';
 
@@ -13,21 +14,13 @@ class SignupFooterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginController());
+
     return Column(
       children: [
         const Text('OR'),
         const SizedBox(height: tFormHeight - 20),
-        SizedBox(
-          width: double.infinity,
-          child: OutlinedButton.icon(
-            icon: const Image(
-              image: AssetImage(tGoogleLogo),
-              width: 15,
-            ),
-            onPressed: () {},
-            label: const Text(tSignInWithGoogle),
-          ),
-        ),
+        TGoogleSignInButton(controller: controller),
         const SizedBox(height: tFormHeight - 20),
         TextButton(
           onPressed: () {
