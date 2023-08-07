@@ -65,16 +65,17 @@ class MailVerificationScreen extends StatelessWidget {
                 child: const Text(tResendEmail),
               ),
               TextButton(
-                  onPressed: () {
-                    AuthenticationRepository.instance.logout();
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(LineAwesomeIcons.arrow_left),
-                      Text(tBackToLogin)
-                    ],
-                  )),
+                onPressed: () {
+                  AuthenticationRepository.instance.logout();
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(LineAwesomeIcons.arrow_left),
+                    Text(tBackToLogin)
+                  ],
+                ),
+              ),
             ],
           ),
         ),

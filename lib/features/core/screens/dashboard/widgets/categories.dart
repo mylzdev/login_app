@@ -32,7 +32,7 @@ class DashboardCategories extends StatelessWidget {
                   width: 45,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: tDarkColor,
+                    color: tPrimaryColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(

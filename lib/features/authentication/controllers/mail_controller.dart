@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:login_app/constants/text_strings.dart';
 import 'package:login_app/repository/auth_repository/authentication_repository.dart';
 import 'dart:async';
+
+import 'package:login_app/utils/auth_function/helper.dart';
 
 class MailVerificationController extends GetxController {
   late Timer _timer;
@@ -14,14 +17,12 @@ class MailVerificationController extends GetxController {
   }
 
   Future<void> sendVerificationEmail() async {
-    String? error =
-        await AuthenticationRepository.instance.sendEmailVerification();
-
-    if (error != null) {
-      Get.showSnackbar(GetSnackBar(
-        message: error.toString(),
-        duration: const Duration(milliseconds: 2000),
-      ));
+    try {
+      await AuthenticationRepository.instance.sendEmailVerification();
+      Helper.successSnackBar(
+          title: tSuccess, message: 'We have sent you email verification');
+    } catch (e) {
+      Helper.errorSnackbar(title: tOhSnap, message: e.toString());
     }
   }
 

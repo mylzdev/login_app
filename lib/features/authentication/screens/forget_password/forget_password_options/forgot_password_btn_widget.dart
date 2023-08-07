@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/constants/colors.dart';
+import 'package:login_app/features/core/controllers/profile_controller.dart';
 
 class ForgetPasswordBtnWidget extends StatelessWidget {
   const ForgetPasswordBtnWidget({
@@ -25,7 +26,9 @@ class ForgetPasswordBtnWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: isDarkMode ? tCardDarkColor : tCardLightColor,
+          color: isDarkMode || !ProfileController.instance.isDarkMode.value
+              ? tCardDarkColor
+              : tCardLightColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(

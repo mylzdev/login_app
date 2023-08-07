@@ -65,9 +65,14 @@ class TopCourses extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                              backgroundColor: tPrimaryColor,
+                              side: BorderSide.none,
                               shape: const CircleBorder()),
                           onPressed: () {},
-                          child: const Icon(Icons.play_arrow),
+                          child: Icon(
+                            Icons.play_arrow,
+                            color: Theme.of(context).iconTheme.color,
+                          ),
                         ),
                         const SizedBox(width: 10),
                         Column(

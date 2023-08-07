@@ -7,7 +7,7 @@ import 'package:login_app/features/authentication/screens/login/login_screen.dar
 import 'package:login_app/features/authentication/screens/mail_verification/mail_verification.dart';
 import 'package:login_app/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 import 'package:login_app/features/authentication/screens/welcome/welcome_screen.dart';
-import 'package:login_app/features/core/screens/dashboard/dashboard_screen.dart';
+import 'package:login_app/features/core/screens/home/home_screen.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -18,7 +18,7 @@ class AuthenticationRepository extends GetxController {
   final verificationId = ''.obs;
 
   // Getters
-  // User? get firebaseUser => firebaseUser.value;
+  // User? get firebaseUser => _firebaseUser.value;
 
   @override
   void onReady() {
@@ -33,7 +33,7 @@ class AuthenticationRepository extends GetxController {
     user == null
         ? Get.offAll(() => const OnBoardingScreen())
         : user.emailVerified
-            ? Get.offAll(() => const DashboardScreen())
+            ? Get.offAll(() => const HomeScreen())
             : Get.offAll(() => const MailVerificationScreen());
   }
 
@@ -98,7 +98,7 @@ class AuthenticationRepository extends GetxController {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       firebaseUser.value != null
-          ? Get.offAll(() => const DashboardScreen())
+          ? Get.offAll(() => const HomeScreen())
           : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
       final ex = TAuthException.fromCode(e.code);
@@ -121,7 +121,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  Future<String?> sendEmailVerification() async {
+  Future<void> sendEmailVerification() async {
     try {
       await _auth.currentUser?.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
@@ -131,7 +131,23 @@ class AuthenticationRepository extends GetxController {
       final ex = TAuthException();
       throw ex.message;
     }
-    return null;
+  }
+
+  Future<void> sendPasswordResetCode(String email) async {
+    try {
+      List<String> emailExists = await _auth.fetchSignInMethodsForEmail(email);
+      if (emailExists.isNotEmpty) {
+        await _auth.sendPasswordResetEmail(email: email);
+      } else {
+        throw 'Invalid Email';
+      }
+    } on FirebaseAuthException catch (e) {
+      Get.printError(info: e.code);
+      final ex = TAuthException.fromCode(e.code);
+      throw ex.message;
+    } catch (_) {
+      throw 'Invalid Email';
+    }
   }
 
   Future<void> logout() async {
@@ -141,7 +157,7 @@ class AuthenticationRepository extends GetxController {
       Get.offAll(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {
       final ex = TAuthException.fromCode(e.code);
-      throw ex;
+      throw ex.message;
     } catch (_) {
       throw 'Something went wrong';
     }

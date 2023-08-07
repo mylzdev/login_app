@@ -31,6 +31,8 @@ class TAuthException implements Exception {
         return TAuthException('The provided Firebase session cookie is expired');
       case 'uid-already-exist':
         return TAuthException('The provided uid is already exist');
+      case 'network-request-failed':
+        return TAuthException('A network error. Please make sure you are connected to an internet');
       default:
         return TAuthException();
     }

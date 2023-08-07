@@ -14,7 +14,9 @@ const String tForgetPassword = "Forget Password?";
 const String tSignInWithGoogle = "Sign In with Google";
 const String tContinue = "Continue";
 const String tOhSnap = "Oh Snap!";
+const String tSuccess = "Success";
 const String tLoading = "Loading";
+const String tWaiting = "Waiting...";
 
 // -- Font String
 final String? poppins = GoogleFonts.poppins().fontFamily;
@@ -59,6 +61,8 @@ const String tForgetPasswordSubTitle =
     "Select one of the options given below to reset your password.";
 const String tResetViaEMail = "Reset via Mail Verification";
 const String tResetViaPhone = "Reset via Phone Verification";
+const String tResetEmail =
+    "We will send you a reset password link through your email.";
 
 // -- Forget Password Via Phone - Text
 const String tForgetPhoneSubTitle =
@@ -66,8 +70,7 @@ const String tForgetPhoneSubTitle =
 
 // -- Forget Password Via E-Mail - Text
 const String tForgetMailSubTitle =
-    "Enter your registered E-Mail to receive OTP";
-
+    "We have just send password reset link through your email. Please check your email and click on that link to reset your password.";
 // -- OTP Text
 const String tOtpTitle = "CO\nDE";
 const String tOtopSubtitle = "Verification";

@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_app/repository/auth_repository/authentication_repository.dart';
 
 import '../../../../../constants/text_strings.dart';
 import '../../profile/profile_screen.dart';
 
-class DashboardAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const DashboardAppbar({
+class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
+  const HomeAppbar({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: Icon(
-        Icons.menu,
+      leading: IconButton(
+        onPressed: () {
+          AuthenticationRepository.instance.logout();
+        },
         color: Theme.of(context).iconTheme.color,
+        icon: const Icon(
+          Icons.menu,
+        ),
       ),
       title: Text(tAppName, style: Theme.of(context).textTheme.headlineMedium),
       centerTitle: true,
