@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:login_app/exceptions/auth_exception/auth_exception.dart';
+import 'package:login_app/features/authentication/models/user_model.dart';
 import 'package:login_app/features/authentication/screens/login/login_screen.dart';
 import 'package:login_app/features/authentication/screens/mail_verification/mail_verification.dart';
 import 'package:login_app/features/authentication/screens/on_boarding/on_boarding_screen.dart';
@@ -160,6 +161,35 @@ class AuthenticationRepository extends GetxController {
       throw ex.message;
     } catch (_) {
       throw 'Something went wrong';
+    }
+  }
+
+  Future<void> reAuthUser(UserModel user) async {
+    try {
+      final credential = EmailAuthProvider.credential(
+        email: user.email.trim(),
+        password: user.password.trim(),
+      );
+      await _auth.currentUser?.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      final ex = TAuthException.fromCode(e.code);
+      throw ex.message;
+    } catch (_) {
+      final ex = TAuthException();
+      throw ex;
+    }
+  }
+
+  Future<void> deleteUserAccount() async {
+    try {
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      Get.printError(info: e.toString());
+      final ex = TAuthException.fromCode(e.code);
+      throw ex.message;
+    } catch (_) {
+      final ex = TAuthException();
+      throw ex.message;
     }
   }
 }

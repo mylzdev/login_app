@@ -18,42 +18,10 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    final isDarkMode = brightness == Brightness.dark;
-
     final controller = Get.put(ProfileController());
     final txtTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            LineAwesomeIcons.angle_left,
-            color: Theme.of(context).iconTheme.color,
-          ),
-        ),
-        title: Text(tProfile, style: txtTheme.headlineMedium),
-        actions: [
-          Obx(
-            () => IconButton(
-              onPressed: () {
-                controller.isDarkMode.value = !controller.isDarkMode.value;
-              },
-              icon: Icon(
-                controller.isDarkMode.value || isDarkMode
-                    ? LineAwesomeIcons.sun
-                    : LineAwesomeIcons.moon,
-                color: Theme.of(context).iconTheme.color,
-              ),
-            ),
-          ),
-        ],
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(

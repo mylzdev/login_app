@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:login_app/constants/text_strings.dart';
 import 'package:login_app/features/authentication/models/user_model.dart';
 import 'package:login_app/repository/auth_repository/authentication_repository.dart';
 import 'package:login_app/repository/user_repository/user_repository.dart';
+import 'package:login_app/utils/auth_function/helper.dart';
 
 class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
@@ -28,5 +30,25 @@ class ProfileController extends GetxController {
 
   updateRecord(UserModel user) async {
     await _userRepo.updateUserRecord(user);
+  }
+
+  deleteUserDetails(UserModel user) async {
+    try {
+      await _authRepo.deleteUserAccount();
+      await _userRepo.deleteUserFromDatabase(user.id!);
+    } catch (e) {
+      Helper.errorSnackbar(title: tOhSnap, message: e.toString());
+    }
+  }
+
+  deleteUserAccount(UserModel user) async {
+    try {
+      await _authRepo.reAuthUser(user).then(
+            (value) => deleteUserDetails(user),
+          );
+      _authRepo.logout();
+    } catch (e) {
+      Helper.errorSnackbar(title: tOhSnap, message: e.toString());
+    }
   }
 }

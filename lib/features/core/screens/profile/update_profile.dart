@@ -43,15 +43,15 @@ class UpdateProfileScreen extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     UserModel user = snapshot.data as UserModel;
-              
+
                     final email = TextEditingController(text: user.email);
                     final password = TextEditingController(text: user.password);
                     final fullname = TextEditingController(text: user.fullname);
                     final phoneNo = TextEditingController(text: user.phoneNo);
-              
+
                     return Column(
+                      /* -- Profile Picture -- */
                       children: [
-                        /* -- Profile Picture -- */
                         Stack(
                           children: [
                             SizedBox(
@@ -86,9 +86,9 @@ class UpdateProfileScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 50),
-              
+
                         /* -- Form -- */
-              
+
                         Form(
                           child: Column(
                             children: [
@@ -129,9 +129,9 @@ class UpdateProfileScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: tFormHeight),
-              
+
                         /* -- Edit Profile Button */
-              
+
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -159,13 +159,18 @@ class UpdateProfileScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: tFormHeight + 10),
-              
+
                         /* -- Footer -- */
-                        const EditProfileFooter(),
+                        EditProfileFooter(
+                          id: user.id,
+                          email: email.text,
+                          fullname: fullname.text,
+                          password: password.text,
+                          phoneNo: phoneNo.text,
+                        ),
                       ],
                     );
                   } else if (snapshot.hasError) {
-                    Get.printError(info: snapshot.error.toString());
                     return Center(child: Text(snapshot.error.toString()));
                   } else {
                     return const Center(child: Text('Something went wrong'));

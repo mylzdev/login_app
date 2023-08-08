@@ -46,6 +46,9 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  Future<void> deleteUserFromDatabase(String uid) async =>
+      await _db.collection('Users').doc(uid).delete();
+
   Future<void> updateUserRecord(UserModel user) async {
     await _db
         .collection("Users")
@@ -61,10 +64,13 @@ class UserRepository extends GetxController {
           ),
         )
         .catchError((error, stackStrace) {
-      Get.snackbar('Error', '$error',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.redAccent.withOpacity(0.1),
-          colorText: Colors.red);
+      Get.snackbar(
+        'Error',
+        '$error',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
     });
   }
 }

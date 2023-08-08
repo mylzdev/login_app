@@ -15,7 +15,7 @@ class BottomNavBar extends StatelessWidget {
   });
 
   final bool isDarkMode;
-  final DashboardController controller;
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {

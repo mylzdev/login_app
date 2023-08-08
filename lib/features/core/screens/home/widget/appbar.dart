@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:login_app/features/core/controllers/profile_controller.dart';
 import 'package:login_app/repository/auth_repository/authentication_repository.dart';
 
 import '../../../../../constants/text_strings.dart';
-import '../../profile/profile_screen.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppbar({
@@ -12,6 +13,9 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return AppBar(
       leading: IconButton(
         onPressed: () {
@@ -26,16 +30,18 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       automaticallyImplyLeading: false,
       actions: [
-        Container(
-          margin: const EdgeInsets.only(top: 7, right: 10),
-          child: IconButton(
-            color: Theme.of(context).iconTheme.color,
-            icon: const Icon(
-              Icons.person,
-            ),
+        Obx(
+          () => IconButton(
             onPressed: () {
-              Get.to(() => const ProfileScreen());
+              ProfileController.instance.isDarkMode.value =
+                  !ProfileController.instance.isDarkMode.value;
             },
+            icon: Icon(
+              ProfileController.instance.isDarkMode.value || isDarkMode
+                  ? LineAwesomeIcons.sun
+                  : LineAwesomeIcons.moon,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
         ),
       ],
